@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import NavigationService from '../services/NavigationService';
-import { Notifications } from 'expo';
+import * as Notifications from 'expo-notifications';
 import * as Linking from 'expo-linking';
 import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
@@ -43,12 +43,12 @@ const NetworkInterceptor = ({ showNotification, children }) => {
     setUrlEventListener();
 
     if (Platform.OS === OS_TYPES.ANDROID) {
-      Notifications.createChannelAndroidAsync(DEFAULT, {
+      Notifications.setNotificationChannelAsync(DEFAULT, {
         name: NOTIFICATION,
         sound: true
       });
     }
-    Notifications.addListener(handleNotification);
+    Notifications.addNotificationReceivedListener(handleNotification);
   };
 
   const handleNotification = notification => {
