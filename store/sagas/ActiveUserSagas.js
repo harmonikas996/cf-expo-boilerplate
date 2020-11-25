@@ -21,7 +21,7 @@ export function* userLogin({ payload }) {
     yield call(authService.login, payload);
     NavigationService.navigate('AuthLoading');
   } catch (error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 || error.response.status === 400) {
       yield put(setSignInError(true));
     } else {
       yield put(setGlobalError(true));
@@ -69,13 +69,17 @@ export function* userGoogleLogin() {
 
 export function* userSignUp({ payload }) {
   try {
-    yield put(setSignUpErrors({}));
+    yield put(setSignUpErrors(''));
     yield put(setLoader(true));
-    yield call(authService.signup, payload);
-    NavigationService.navigate('AuthLoading');
+
+    const { data } = yield call(authService.signup, payload);
+
+    if (data) {
+      NavigationService.navigate('SignIn');
+    }
   } catch (error) {
-    if (error.response.status === 422) {
-      yield put(setSignUpErrors(error.response.data.errors));
+    if (error.response.status === 400) {
+      yield put(setSignUpErrors(error.response.data.message));
     } else {
       yield put(setGlobalError(true));
     }
@@ -87,6 +91,7 @@ export function* userSignUp({ payload }) {
 export function* userLogout() {
   try {
     yield put(setLoader(true));
+    // TO DO: Handle token invalidation on API (inspect authService.logout)
     yield call(authService.logout);
     NavigationService.navigate('AuthLoading');
   } catch (error) {
@@ -135,7 +140,9 @@ export function* userGet() {
     const { data } = yield call(profileService.getProfile);
     yield put(setUser(data));
   } catch (error) {
-    yield put(setGlobalError(true));
+    if (error.response.status !== 401) {
+      yield put(setGlobalError(true));
+    }
   } finally {
     yield put(setLoader(false));
   }

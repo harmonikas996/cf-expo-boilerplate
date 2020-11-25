@@ -28,8 +28,12 @@ export const SignUpForm = ({ onSubmit, signUpErrors }) => (
           placeholder={$t('auth.enterFirstName')}
         />
         <Field name="last_name" component={TextInputField} placeholder={$t('auth.enterLastName')} />
-        <Field name="email" component={TextInputField} placeholder={$t('auth.enterEmail')} />
-        <ErrorText error={!!signUpErrors.email} message={signUpErrors.email} />
+        <Field
+          name="email"
+          autoCapitalize="none"
+          component={TextInputField}
+          placeholder={$t('auth.enterEmail')}
+        />
         <Field
           name="password"
           component={TextInputField}
@@ -42,6 +46,7 @@ export const SignUpForm = ({ onSubmit, signUpErrors }) => (
           secureTextEntry
           placeholder={$t('auth.confirmPassword')}
         />
+        <ErrorText error={!!signUpErrors} message={signUpErrors} />
         <TouchableOpacity onPress={handleSubmit}>
           <Text>{$t('auth.signUp')}</Text>
         </TouchableOpacity>
@@ -52,5 +57,5 @@ export const SignUpForm = ({ onSubmit, signUpErrors }) => (
 
 SignUpForm.propTypes = {
   onSubmit: PropTypes.func,
-  signUpErrors: PropTypes.object
+  signUpErrors: PropTypes.string
 };

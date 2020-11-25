@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ImagePicker } from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 import { updateUser } from '../../../store/actions/UserActions';
@@ -69,7 +69,7 @@ const EditProfile = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={openImagePickerModal}>
-        {image !== '' || user.avatar !== null ? (
+        {!!image || user.avatar ? (
           <Picture source={image} uri={user.avatar} />
         ) : (
           <Picture source={defaultAvatar} />
@@ -94,6 +94,10 @@ const EditProfile = () => {
 
 EditProfile.propTypes = {
   navigation: PropTypes.object
+};
+
+EditProfile.navigationOptions = {
+  headerShown: false
 };
 
 export default EditProfile;

@@ -16,7 +16,12 @@ export const SignInForm = ({ onSubmit, signInError }) => (
   >
     {({ handleSubmit }) => (
       <View>
-        <Field name="email" component={TextInputField} placeholder={$t('auth.enterEmail')} />
+        <Field
+          name="email"
+          autoCapitalize="none"
+          component={TextInputField}
+          placeholder={$t('auth.enterEmail')}
+        />
         <Field
           name="password"
           component={TextInputField}

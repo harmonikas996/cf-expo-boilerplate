@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addHeaderLeftNavigator } from '../../helpers';
 import $t from 'i18n';
 import { logout } from '../../store/actions/UserActions';
 import { userSelector } from '../../store/selectors/UserSelector';
@@ -32,10 +31,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.welcomeContainer}>
           <Text>{$t('helloWorld')}</Text>
           {user && <Text>{user.email}</Text>}
@@ -63,10 +59,7 @@ const HomeScreen = () => {
             <View>
               <Text>{$t('helloWorld')}</Text>
 
-              <Button
-                onPress={() => setModalVisible(!modalVisible)}
-                title="Hide Modal"
-              />
+              <Button onPress={() => setModalVisible(!modalVisible)} title="Hide Modal" />
             </View>
           </SafeAreaView>
         </Modal>
@@ -77,9 +70,8 @@ const HomeScreen = () => {
   );
 };
 
-HomeScreen.navigationOptions = ({ navigation }) => {
-  const headerLeftNav = addHeaderLeftNavigator(navigation);
-  return { ...headerLeftNav, title: 'Home' };
+HomeScreen.navigationOptions = {
+  headerShown: false
 };
 
 export default HomeScreen;

@@ -14,7 +14,7 @@ const initialState = {
   signInError: false,
   forgotPasswordError: false,
   resetPasswordError: false,
-  signUpErrors: {},
+  signUpErrors: '',
   changePasswordError: false,
   socialLoginError: ''
 };

@@ -1,5 +1,5 @@
 import ApiService from './ApiService';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ENDPOINTS = {
   NOTIFICATIONS: '/profiles/me/notifications',
