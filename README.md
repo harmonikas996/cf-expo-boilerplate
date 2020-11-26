@@ -1,8 +1,8 @@
 # **_VivifyIdeas Expo boilerplate_**
 
-Expo SDK version: **38.0.2**
+Expo SDK version: **39.0.3**
 
-If you are using our Expo boilerplate we recommend you use it with our [laravel](https://github.com/Vivify-Ideas/laravel-boilerplate) boilerplate.
+If you are using this Expo boilerplate I recommend you use it with [node]() boilerplate (TBA).
 
 ## **Built in functions**
 
@@ -11,20 +11,15 @@ If you are using our Expo boilerplate we recommend you use it with our [laravel]
 - Immerjs
 - Sign in
 - Sign up
-- Facebook sign in
-- Google sign in
-- Forgot & reset password
+- ~~Facebook sign in~~
+- ~~Google sign in~~
+- ~~Forgot & reset password~~
 - Internationalization
 - Deeplinking
 - Global Error Modal ( Something went wrong )
 - Edit profile
-- Change password
+- ~~Change password~~
 - Push and inapp notifications
-
-## **TBD**
-
-- Sockets
-- Chat
 
 ## **Code structure and technologies**
 

@@ -1,13 +1,14 @@
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
-import Sentry from 'sentry-expo';
-
+import * as Sentry from 'sentry-expo';
 import config from '../config';
 
 class HttpService {
   constructor(options = {}) {
     this.client = axios.create(options);
-    this.client.interceptors.response.use(this.handleSuccessResponse, this.handleErrorResponse);
+    this.client.interceptors.response.use(
+      this.handleSuccessResponse,
+      this.handleErrorResponse
+    );
     this.unauthorizedCallback = () => {};
   }
 
@@ -27,16 +28,16 @@ class HttpService {
     try {
       const { status } = error.response;
 
-      Sentry.captureException(error);
+      // Sentry.Native.captureException(error);
 
       switch (status) {
-      case 401:
-        AsyncStorage.clear();
-        this.unauthorizedCallback();
+        case 400:
+        case 401:
+          this.unauthorizedCallback();
 
-        break;
-      default:
-        break;
+          break;
+        default:
+          break;
       }
 
       return Promise.reject(error);

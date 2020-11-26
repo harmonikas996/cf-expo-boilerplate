@@ -19,11 +19,14 @@ const AuthLoadingScreen = ({ navigation }) => {
     bootstrapAsync();
   }, []);
 
-  useEffect(() => {
-    if (user.id) {
-      navigation.navigate('MainStack');
-    }
-  }, [user.id]);
+  useEffect(
+    () => {
+      if (user.email) {
+        navigation.navigate('MainStack');
+      }
+    },
+    [user.email]
+  );
 
   // Fetch the token from storage then navigate to our appropriate place
   const bootstrapAsync = async () => {

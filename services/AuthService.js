@@ -1,13 +1,20 @@
-import { AsyncStorage, Platform } from 'react-native';
+import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
+import * as Sentry from 'sentry-expo';
 import ApiService from './ApiService';
 import config from '../config';
 import { askForNotificationsPermission } from '../services/PermissionsService';
 // import notificationService from './NotificationService';
 import { OS_TYPES } from '../constants';
+import NavigationService from './NavigationService';
 
-const { ANDROID_GOOGLE_CLIENT_ID, IOS_GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } = config;
+const {
+  ANDROID_GOOGLE_CLIENT_ID,
+  IOS_GOOGLE_CLIENT_ID,
+  FACEBOOK_APP_ID
+} = config;
 
 const { CLIENT_ID } = config;
 
@@ -55,15 +62,23 @@ class AuthService extends ApiService {
     await this.setAuthorizationHeader();
     const expoPushToken = await askForNotificationsPermission();
     if (expoPushToken) {
-      await AsyncStorage.setItem('expoPushToken', expoPushToken);
+      await AsyncStorage.setItem(
+        'expoPushToken',
+        JSON.stringify(expoPushToken)
+      );
       // TODO this token need to be saved on BE
       // notificationService.sendExpoTokenToServer(expoPushToken);
+    }
+    if (user.email) {
+      // Sentry.Native.configureScope(scope => scope.setUser({ email: user.email }));
     }
   };
 
   destroySession = async () => {
     await AsyncStorage.clear();
     this.api.removeHeaders(['Authorization']);
+    // Sentry.Native.configureScope(scope => scope.setUser(null));
+    NavigationService.navigate('AuthStack');
   };
 
   login = async loginData => {
@@ -88,7 +103,10 @@ class AuthService extends ApiService {
   loginWithGoogle = async () => {
     return await this.googleLogin(
       Google.logInAsync({
-        clientId: Platform.OS == OS_TYPES.IOS ? IOS_GOOGLE_CLIENT_ID : ANDROID_GOOGLE_CLIENT_ID,
+        clientId:
+          Platform.OS == OS_TYPES.IOS
+            ? IOS_GOOGLE_CLIENT_ID
+            : ANDROID_GOOGLE_CLIENT_ID,
         scopes: ['profile', 'email']
       })
     );
@@ -116,24 +134,22 @@ class AuthService extends ApiService {
   };
 
   logout = async () => {
-    const { data } = await this.apiClient.post(ENDPOINTS.LOGOUT);
+    // TO DO: Handle token invalidation on API
+    // const { data } = await this.apiClient.post(ENDPOINTS.LOGOUT);
     await this.destroySession();
-    return { ok: true, data };
+    return { ok: true };
   };
 
   forgotPassword = data => this.apiClient.post(ENDPOINTS.FORGOT_PASSWORD, data);
 
   resetPassword = data => this.apiClient.post(ENDPOINTS.RESET_PASSWORD, data);
 
-  signup = async signupData => {
+  signup = async signupData =>
     await this.apiClient.post(ENDPOINTS.SIGN_UP, signupData);
-    const { email, password } = signupData;
-    return this.login({ email, password });
-  };
 
   getToken = async () => {
     const user = await AsyncStorage.getItem('user');
-    return user ? JSON.parse(user).access_token : undefined;
+    return user ? JSON.parse(user).token : undefined;
   };
 
   getUser = async () => {

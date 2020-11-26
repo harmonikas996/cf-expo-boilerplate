@@ -1,30 +1,18 @@
-import React, { useState } from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Modal,
-  SafeAreaView
-} from 'react-native';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Image, Platform, ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addHeaderLeftNavigator } from '../../helpers';
 import $t from 'i18n';
 import { logout } from '../../store/actions/UserActions';
 import { userSelector } from '../../store/selectors/UserSelector';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const handleLogout = () => dispatch(logout());
 
   const user = useSelector(userSelector());
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   const _signOutAsync = async () => {
     handleLogout();
@@ -32,10 +20,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
         <View style={styles.welcomeContainer}>
           <Text>{$t('helloWorld')}</Text>
           {user && <Text>{user.email}</Text>}
@@ -49,27 +34,9 @@ const HomeScreen = () => {
           />
         </View>
 
-        <Button title="Actually, sign me out :)" onPress={_signOutAsync} />
+        <Button title="SIGN OUT" onPress={_signOutAsync} />
 
-        <Button onPress={() => setModalVisible(true)} title="Show Modal" />
-
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={modalVisible}
-          onRequestClose={() => alert('Modal has been closed.')}
-        >
-          <SafeAreaView style={styles.container}>
-            <View>
-              <Text>{$t('helloWorld')}</Text>
-
-              <Button
-                onPress={() => setModalVisible(!modalVisible)}
-                title="Hide Modal"
-              />
-            </View>
-          </SafeAreaView>
-        </Modal>
+        <Button onPress={() => navigation.navigate('ChangePassword')} title="Change Password" />
       </ScrollView>
 
       <View style={styles.tabBarInfoContainer} />
@@ -77,9 +44,12 @@ const HomeScreen = () => {
   );
 };
 
-HomeScreen.navigationOptions = ({ navigation }) => {
-  const headerLeftNav = addHeaderLeftNavigator(navigation);
-  return { ...headerLeftNav, title: 'Home' };
+HomeScreen.navigationOptions = {
+  headerShown: false
+};
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.object
 };
 
 export default HomeScreen;
