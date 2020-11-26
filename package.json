@@ -13,8 +13,7 @@
     "preset": "jest-expo"
   },
   "husky": {
-    "hooks": {
-    }
+    "hooks": {}
   },
   "lint-staged": {
     "*.js": [
