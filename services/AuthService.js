@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Google from 'expo-google-app-auth';
 import * as Facebook from 'expo-facebook';
+import * as Sentry from 'sentry-expo';
 import ApiService from './ApiService';
 import config from '../config';
 import { askForNotificationsPermission } from '../services/PermissionsService';
@@ -61,11 +62,15 @@ class AuthService extends ApiService {
       // TODO this token need to be saved on BE
       // notificationService.sendExpoTokenToServer(expoPushToken);
     }
+    if (user.email) {
+      Sentry.Native.configureScope(scope => scope.setUser({ email: user.email }));
+    }
   };
 
   destroySession = async () => {
     await AsyncStorage.clear();
     this.api.removeHeaders(['Authorization']);
+    Sentry.Native.configureScope(scope => scope.setUser(null));
     NavigationService.navigate('AuthStack');
   };
 

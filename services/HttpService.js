@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import * as Sentry from 'sentry-expo';
 import config from '../config';
 
 class HttpService {
@@ -25,7 +25,7 @@ class HttpService {
     try {
       const { status } = error.response;
 
-      // Sentry.captureException(error);
+      Sentry.Native.captureException(error);
 
       switch (status) {
       case 400:

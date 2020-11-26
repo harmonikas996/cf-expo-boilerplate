@@ -25,9 +25,9 @@
         {
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
-            "organization": "your team short name here",
-            "project": "your project short name here",
-            "authToken": "your auth token here"
+            "organization": "dev-phir",
+            "project": "expo-boilerplate",
+            "authToken": "c3cb5c0c6ebd4e69b4aa727951403d23e22218da7ba04ab0b97c7455beed2410"
           }
         }
       ]

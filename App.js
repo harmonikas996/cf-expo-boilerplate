@@ -4,7 +4,7 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as Icon from '@expo/vector-icons';
-import Sentry from 'sentry-expo';
+import * as Sentry from 'sentry-expo';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { InAppNotificationProvider } from 'react-native-in-app-notification';
@@ -13,11 +13,19 @@ import store from './store';
 import NavigationService from './services/NavigationService';
 import AppNavigator from './navigation/AppNavigator';
 import NetworkInterceptor from './screens/NetworkInterceptor';
+import config from './config';
 
-if (!__DEV__) {
-  // TODO replace key, and project with variables from ENV file
-  Sentry.config('https://<key>@sentry.io/<project>').install();
-}
+// TODO replace key, and project with variables from ENV file
+Sentry.init({
+  dsn: config.SENTRY_DSN,
+  enableInExpoDevelopment: true,
+  /* 
+    Sentry will try to print out useful debugging information
+    if something goes wrong with sending an event.
+    Set this to `false` in production.
+  */
+  debug: __DEV__
+});
 
 LogBox.ignoreLogs(['react-native-i18n module is not correctly linked']);
 
@@ -79,7 +87,7 @@ export default class App extends React.Component {
   };
 
   _handleLoadingError = error => {
-    Sentry.captureException(error);
+    Sentry.Native.captureException(error);
   };
 
   _handleFinishLoading = () => {

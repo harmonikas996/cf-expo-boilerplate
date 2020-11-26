@@ -60,7 +60,7 @@
     "redux": "^4.0.5",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
-    "sentry-expo": "~2.0.0",
+    "sentry-expo": "3.0.3",
     "yup": "^0.27.0"
   },
   "devDependencies": {
