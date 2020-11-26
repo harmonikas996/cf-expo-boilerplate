@@ -10,7 +10,11 @@ import { askForNotificationsPermission } from '../services/PermissionsService';
 import { OS_TYPES } from '../constants';
 import NavigationService from './NavigationService';
 
-const { ANDROID_GOOGLE_CLIENT_ID, IOS_GOOGLE_CLIENT_ID, FACEBOOK_APP_ID } = config;
+const {
+  ANDROID_GOOGLE_CLIENT_ID,
+  IOS_GOOGLE_CLIENT_ID,
+  FACEBOOK_APP_ID
+} = config;
 
 const { CLIENT_ID } = config;
 
@@ -58,19 +62,22 @@ class AuthService extends ApiService {
     await this.setAuthorizationHeader();
     const expoPushToken = await askForNotificationsPermission();
     if (expoPushToken) {
-      await AsyncStorage.setItem('expoPushToken', JSON.stringify(expoPushToken));
+      await AsyncStorage.setItem(
+        'expoPushToken',
+        JSON.stringify(expoPushToken)
+      );
       // TODO this token need to be saved on BE
       // notificationService.sendExpoTokenToServer(expoPushToken);
     }
     if (user.email) {
-      Sentry.Native.configureScope(scope => scope.setUser({ email: user.email }));
+      // Sentry.Native.configureScope(scope => scope.setUser({ email: user.email }));
     }
   };
 
   destroySession = async () => {
     await AsyncStorage.clear();
     this.api.removeHeaders(['Authorization']);
-    Sentry.Native.configureScope(scope => scope.setUser(null));
+    // Sentry.Native.configureScope(scope => scope.setUser(null));
     NavigationService.navigate('AuthStack');
   };
 
@@ -96,7 +103,10 @@ class AuthService extends ApiService {
   loginWithGoogle = async () => {
     return await this.googleLogin(
       Google.logInAsync({
-        clientId: Platform.OS == OS_TYPES.IOS ? IOS_GOOGLE_CLIENT_ID : ANDROID_GOOGLE_CLIENT_ID,
+        clientId:
+          Platform.OS == OS_TYPES.IOS
+            ? IOS_GOOGLE_CLIENT_ID
+            : ANDROID_GOOGLE_CLIENT_ID,
         scopes: ['profile', 'email']
       })
     );
@@ -134,7 +144,8 @@ class AuthService extends ApiService {
 
   resetPassword = data => this.apiClient.post(ENDPOINTS.RESET_PASSWORD, data);
 
-  signup = async signupData => await this.apiClient.post(ENDPOINTS.SIGN_UP, signupData);
+  signup = async signupData =>
+    await this.apiClient.post(ENDPOINTS.SIGN_UP, signupData);
 
   getToken = async () => {
     const user = await AsyncStorage.getItem('user');

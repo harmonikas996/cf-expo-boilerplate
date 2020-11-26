@@ -5,7 +5,10 @@ import config from '../config';
 class HttpService {
   constructor(options = {}) {
     this.client = axios.create(options);
-    this.client.interceptors.response.use(this.handleSuccessResponse, this.handleErrorResponse);
+    this.client.interceptors.response.use(
+      this.handleSuccessResponse,
+      this.handleErrorResponse
+    );
     this.unauthorizedCallback = () => {};
   }
 
@@ -25,16 +28,16 @@ class HttpService {
     try {
       const { status } = error.response;
 
-      Sentry.Native.captureException(error);
+      // Sentry.Native.captureException(error);
 
       switch (status) {
-      case 400:
-      case 401:
-        this.unauthorizedCallback();
+        case 400:
+        case 401:
+          this.unauthorizedCallback();
 
-        break;
-      default:
-        break;
+          break;
+        default:
+          break;
       }
 
       return Promise.reject(error);

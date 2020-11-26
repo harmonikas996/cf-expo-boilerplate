@@ -6,7 +6,7 @@ import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware({
   onError(error) {
-    Sentry.Native.captureException(error);
+    // Sentry.Native.captureException(error);
   }
 });
 const store = createStore(combineReducers, applyMiddleware(sagaMiddleware));

@@ -16,16 +16,16 @@ import NetworkInterceptor from './screens/NetworkInterceptor';
 import config from './config';
 
 // TODO replace key, and project with variables from ENV file
-Sentry.init({
-  dsn: config.SENTRY_DSN,
-  enableInExpoDevelopment: true,
-  /* 
-    Sentry will try to print out useful debugging information
-    if something goes wrong with sending an event.
-    Set this to `false` in production.
-  */
-  debug: __DEV__
-});
+// Sentry.init({
+//   dsn: config.SENTRY_DSN,
+//   enableInExpoDevelopment: true,
+//   /*
+//     Sentry will try to print out useful debugging information
+//     if something goes wrong with sending an event.
+//     Set this to `false` in production.
+//   */
+//   debug: __DEV__
+// });
 
 LogBox.ignoreLogs(['react-native-i18n module is not correctly linked']);
 
@@ -87,7 +87,7 @@ export default class App extends React.Component {
   };
 
   _handleLoadingError = error => {
-    Sentry.Native.captureException(error);
+    // Sentry.Native.captureException(error);
   };
 
   _handleFinishLoading = () => {
