@@ -33,7 +33,12 @@
       ]
     },
     "android": {
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "icon": "./assets/images/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/androidIconForeground.png",
+        "backgroundImage": "./assets/images/androidIconBackground.png"
+      }
     } 
   }
 }
