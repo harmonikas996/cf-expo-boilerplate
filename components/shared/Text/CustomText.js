@@ -1,32 +1,50 @@
 import React from 'react';
 import { Text } from 'react-native';
 import PropTypes from 'prop-types';
+import {
+  getColor,
+  getCustomStyle,
+  getFontFamily,
+  getFontSize,
+  getTextDecorationLine
+} from '../../../helpers/Typography';
+import {
+  FONT_FAMILY,
+  TEXT_DECORATION_LINE
+} from '../../../constants/Typography';
 
-const FONT_FAMILY = {
-  REGULAR: { fontFamily: 'montserrat-regular' },
-  BOLD: { fontFamily: 'montserrat-bold' },
-  ITALIC: { fontFamily: 'montserrat-italic' }
-};
-
-const CustomText = props => {
-  const getFontFamily = () => {
-    if (props.bold) {
-      return FONT_FAMILY.BOLD;
-    } else if (props.italic) {
-      return FONT_FAMILY.ITALIC;
-    } else {
-      return FONT_FAMILY.REGULAR;
-    }
-  };
-
-  return <Text style={[getFontFamily(), props.style]}>{props.children}</Text>;
+const CustomText = ({
+  children,
+  style,
+  variant = 'regular',
+  color = 'black',
+  size = 14,
+  textDecorationLine = 'none',
+  ...props
+}) => {
+  return (
+    <Text
+      style={[
+        getFontFamily(variant),
+        getColor(color),
+        getFontSize(size),
+        getTextDecorationLine(textDecorationLine),
+        getCustomStyle(style)
+      ]}
+      {...props}
+    >
+      {children}
+    </Text>
+  );
 };
 
 CustomText.propTypes = {
-  bold: PropTypes.bool,
-  italic: PropTypes.bool,
-  style: PropTypes.object,
-  children: PropTypes.children
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(Object.keys(FONT_FAMILY)),
+  color: PropTypes.string,
+  size: PropTypes.number,
+  textDecorationLine: PropTypes.oneOf(Object.keys(TEXT_DECORATION_LINE)),
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
 export default CustomText;

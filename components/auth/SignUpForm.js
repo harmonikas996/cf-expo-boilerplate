@@ -27,12 +27,17 @@ export const SignUpForm = ({ onSubmit, signUpErrors }) => (
           component={TextInputField}
           placeholder={$t('auth.enterFirstName')}
         />
-        <Field name="last_name" component={TextInputField} placeholder={$t('auth.enterLastName')} />
+        <Field
+          name="last_name"
+          component={TextInputField}
+          placeholder={$t('auth.enterLastName')}
+        />
         <Field
           name="email"
           autoCapitalize="none"
           component={TextInputField}
           placeholder={$t('auth.enterEmail')}
+          keyboardType="email-address"
         />
         <Field
           name="password"

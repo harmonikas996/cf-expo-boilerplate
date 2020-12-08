@@ -21,6 +21,7 @@ export const SignInForm = ({ onSubmit, signInError }) => (
           autoCapitalize="none"
           component={TextInputField}
           placeholder={$t('auth.enterEmail')}
+          keyboardType="email-address"
         />
         <Field
           name="password"
@@ -28,7 +29,10 @@ export const SignInForm = ({ onSubmit, signInError }) => (
           secureTextEntry
           placeholder={$t('auth.enterPassword')}
         />
-        <ErrorText error={!!signInError} message={$t('auth.invalidCredentials')} />
+        <ErrorText
+          error={!!signInError}
+          message={$t('auth.invalidCredentials')}
+        />
         <TouchableOpacity onPress={handleSubmit}>
           <Text>{$t('auth.signIn')}</Text>
         </TouchableOpacity>
