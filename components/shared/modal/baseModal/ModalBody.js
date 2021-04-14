@@ -2,8 +2,8 @@ import React from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 
-const ModalBody = ({ children }) => {
-  return <View>{children}</View>;
+const ModalBody = ({ children, containerStyle }) => {
+  return <View style={containerStyle}>{children}</View>;
 };
 
 export default ModalBody;
@@ -14,5 +14,6 @@ ModalBody.propTypes = {
     PropTypes.string,
     PropTypes.object,
     PropTypes.array
-  ])
+  ]),
+  containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

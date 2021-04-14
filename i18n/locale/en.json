@@ -5,7 +5,10 @@
     "success": "success",
     "send": "Send",
     "cancel": "Cancel",
-    "offline": "Please check your Internet connection"
+    "offline": {
+      "title": "You're Offline",
+      "description": "Please check your Internet connection"
+    }
   },
   "auth": {
     "signUp": "Sign up",
@@ -48,11 +51,10 @@
     "newPasswordConfirmationMinCharacters": "New password confirmation must be at least 8 characters."
   },
   "error": {
-    "somethingWrong": "Something went wrong",
-    "doYouWantToRestart": "Do you want to restart application",
-    "restart": "Restart",
+    "somethingWrong": "Something Went Wrong",
+    "restart": "Restart App",
     "cancel": "Cancel",
-    "socialLoginError": "Social login error",
+    "socialLoginError": "Social Login Error",
     "close": "Close"
   },
   "profile": {
@@ -71,9 +73,9 @@
       "firstName": "First name",
       "lastName": "Last name",
       "update": "Update",
-      "importImage": "Import image",
-      "importFromGallery": "Import from gallery",
-      "takePicture": "Take picture",
+      "selectImage": "Select Image",
+      "importFromGallery": "Gallery",
+      "takePicture": "Camera",
       "noPermissions": "No permissions"
     }
   }

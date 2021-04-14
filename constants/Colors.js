@@ -7,8 +7,7 @@ export default {
   tabBar: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',
-  warningBackground: '#EAEB5E',
-  warningText: '#666804',
+  warning: '#EAEB5E',
   noticeBackground: tintColor,
   noticeText: '#fff'
 };

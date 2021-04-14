@@ -1,10 +1,9 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View, LogBox } from 'react-native';
-import { AppLoading } from 'expo';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import * as Icon from '@expo/vector-icons';
-import * as Sentry from 'sentry-expo';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { InAppNotificationProvider } from 'react-native-in-app-notification';
@@ -13,21 +12,6 @@ import store from './store';
 import NavigationService from './services/NavigationService';
 import AppNavigator from './navigation/AppNavigator';
 import NetworkInterceptor from './screens/NetworkInterceptor';
-import config from './config';
-
-// TODO replace key, and project with variables from ENV file
-// Sentry.init({
-//   dsn: config.SENTRY_DSN,
-//   enableInExpoDevelopment: true,
-//   /*
-//     Sentry will try to print out useful debugging information
-//     if something goes wrong with sending an event.
-//     Set this to `false` in production.
-//   */
-//   debug: __DEV__
-// });
-
-LogBox.ignoreLogs(['react-native-i18n module is not correctly linked']);
 
 export default class App extends React.Component {
   state = {
@@ -86,9 +70,7 @@ export default class App extends React.Component {
     ]);
   };
 
-  _handleLoadingError = error => {
-    // Sentry.Native.captureException(error);
-  };
+  _handleLoadingError = error => {};
 
   _handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });

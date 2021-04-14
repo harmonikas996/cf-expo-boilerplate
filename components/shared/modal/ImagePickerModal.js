@@ -1,27 +1,41 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import $t from 'i18n';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter } from './baseModal';
+import cameraIcon from '../../../assets/images/camera-icon.png';
+import imageIcon from '../../../assets/images/image-icon.png';
+import CustomText from '../Text/CustomText';
 
-const ImagePickerModal = ({ isVisible, closeModal, galleryImport, openCamera }) => {
+const ImagePickerModal = ({
+  isVisible,
+  closeModal,
+  galleryImport,
+  openCamera
+}) => {
   return (
     <Modal isVisible={isVisible} closeModal={closeModal}>
       <ModalHeader>
-        <Text>{$t('profile.updateUser.importImage')}</Text>
+        <CustomText
+          size={20}
+          style={styles.title}
+          children={$t('profile.updateUser.selectImage')}
+        />
       </ModalHeader>
-      <ModalBody>
-        <TouchableOpacity onPress={openCamera}>
-          <Text>{$t('profile.updateUser.takePicture')}</Text>
+      <ModalBody containerStyle={styles.body}>
+        <TouchableOpacity style={styles.actionBtn} onPress={openCamera}>
+          <Image source={cameraIcon} />
+          <CustomText children={$t('profile.updateUser.takePicture')} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={galleryImport}>
-          <Text>{$t('profile.updateUser.importFromGallery')}</Text>
+        <TouchableOpacity style={styles.actionBtn} onPress={galleryImport}>
+          <Image source={imageIcon} />
+          <CustomText children={$t('profile.updateUser.importFromGallery')} />
         </TouchableOpacity>
       </ModalBody>
       <ModalFooter>
         <TouchableOpacity onPress={closeModal}>
-          <Text>{$t('common.cancel')}</Text>
+          <CustomText style={styles.cancelBtn} children={$t('common.cancel')} />
         </TouchableOpacity>
       </ModalFooter>
     </Modal>
@@ -36,3 +50,22 @@ ImagePickerModal.propTypes = {
   openCamera: PropTypes.func,
   galleryImport: PropTypes.func
 };
+
+const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center'
+  },
+  body: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginVertical: 48
+  },
+  actionBtn: {
+    alignItems: 'center',
+    flexGrow: 1
+  },
+  cancelBtn: {
+    textAlign: 'center',
+    opacity: 0.5
+  }
+});

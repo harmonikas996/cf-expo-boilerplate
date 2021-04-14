@@ -3,3 +3,7 @@ node_modules/**/*
 .vscode
 .DS_Store
 .idea
+.env
+.env.production
+.env.stage
+.env.test

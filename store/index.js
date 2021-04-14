@@ -1,12 +1,10 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import * as Sentry from 'sentry-expo';
 import combineReducers from './reducers';
 import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware({
   onError(error, { sagaStack }) {
-    // Sentry.Native.captureException(error);
     if (__DEV__) {
       alert(
         'Unhandled error occured inside at least one Saga.\n\n' +

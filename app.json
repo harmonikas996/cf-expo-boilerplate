@@ -21,16 +21,7 @@
       "supportsTablet": true
     },
     "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "org-name",
-            "project": "project-name",
-            "authToken": ""
-          }
-        }
-      ]
+      "postPublish": []
     },
     "android": {
       "useNextNotificationsApi": true,
@@ -39,6 +30,6 @@
         "foregroundImage": "./assets/images/androidIconForeground.png",
         "backgroundImage": "./assets/images/androidIconBackground.png"
       }
-    } 
+    }
   }
 }
