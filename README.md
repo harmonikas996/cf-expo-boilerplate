@@ -1,6 +1,8 @@
 # **_VivifyIdeas Expo boilerplate_**
 
-Expo SDK version: **39.0.3**
+Expo SDK version: **40.0.1**
+
+Tested with Node **v14.16.1**
 
 If you are using this Expo boilerplate I recommend you use it with [node]() boilerplate (TBA).
 
@@ -20,6 +22,13 @@ If you are using this Expo boilerplate I recommend you use it with [node]() boil
 - Edit profile
 - ~~Change password~~
 - Push and inapp notifications
+
+## **Project Setup**
+
+1. Make sure you have `expo-cli` installed on your machine
+2. `npm i`
+3. Make a copy of `.env.example` named `.env` (set your API url)
+4. Run `expo start` (to start the project without cache run `expo start -c`)
 
 ## **Code structure and technologies**
 
